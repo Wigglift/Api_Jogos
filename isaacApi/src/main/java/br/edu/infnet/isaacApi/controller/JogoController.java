@@ -28,7 +28,7 @@ public class JogoController {
 
     @GetMapping("/obterJogo/{id}")
     public ResponseEntity<Jogo> obterPorId(@PathVariable Integer id){
-        Jogo jogo = jogoService.obterPorId(id).orElseThrow(() -> new JogoInexistenteException("Jogo não encontrado"));
+        Jogo jogo = jogoService.obterPorId(id).orElseThrow(() -> new JogoInexistenteException("Jogo não encontrado"));;
 
         return new ResponseEntity<Jogo>(jogo,HttpStatus.OK);
     }

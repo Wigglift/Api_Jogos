@@ -44,7 +44,7 @@ public class JogoService {
 
 
     public Optional<Jogo> obterPorId(Integer id){
-        return Optional.of(jogos.get(id));
+        return Optional.ofNullable(jogos.get(id));
     }
 
     public Jogo alterar(Integer id, Jogo jogoAtualizado){
@@ -65,7 +65,7 @@ public class JogoService {
         if(jogoAtualizado.getClasificacaoIndicativa() < 0 || jogoAtualizado.getClasificacaoIndicativa()>18)throw new ClassificacaoIndicativaInvalidaException("A classificação indicativa do jogo não está no range definido");
 
         //testando se o genero é válido
-        if(jogoAtualizado.getGenero() != null) throw new GeneroInvalidoException("Genero do jogo é inválido");
+        if(jogoAtualizado.getGenero() == null) throw new GeneroInvalidoException("Genero do jogo é inválido");
 
         //alteração do objeto
         jogoAtualizado.setId(id);
