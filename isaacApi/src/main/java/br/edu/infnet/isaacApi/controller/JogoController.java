@@ -1,6 +1,8 @@
 package br.edu.infnet.isaacApi.controller;
 
+import br.edu.infnet.isaacApi.clients.FeighClientIsaacApiJogos;
 import br.edu.infnet.isaacApi.model.domain.Jogo;
+import br.edu.infnet.isaacApi.model.domain.JogoDescricao;
 import br.edu.infnet.isaacApi.model.exceptions.JogoInexistenteException;
 import br.edu.infnet.isaacApi.model.service.JogoService;
 import org.springframework.http.HttpStatus;
@@ -15,8 +17,18 @@ public class JogoController {
 
     private final JogoService jogoService;
 
-    public JogoController(){
-        jogoService = new JogoService();
+
+    public JogoController(FeighClientIsaacApiJogos feighClientIsaacApiJogos){
+        jogoService = new JogoService(feighClientIsaacApiJogos);
+    }
+
+    @GetMapping("/{jogoNome}")
+    public ResponseEntity<JogoDescricao> obterDescricao(@PathVariable String jogoNome){
+
+        JogoDescricao jogo = jogoService.obterDescricao(jogoNome);
+
+        return new ResponseEntity<JogoDescricao>(jogo,HttpStatus.OK);
+
     }
 
     @GetMapping("/obterJogos")

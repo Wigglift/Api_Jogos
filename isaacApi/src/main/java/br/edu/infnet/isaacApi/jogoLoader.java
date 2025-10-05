@@ -28,7 +28,7 @@ public class jogoLoader implements ApplicationRunner {
     public void run(ApplicationArguments args){
         try{
             //Leitura do arquivo,txt
-            FileReader file = new FileReader("isaacApi\\arquivos\\Jogos.txt");
+            FileReader file = new FileReader("Api_Jogos\\isaacApi\\arquivos\\Jogos.txt");
             BufferedReader reader = new BufferedReader(file);
             String linha = reader.readLine();
 

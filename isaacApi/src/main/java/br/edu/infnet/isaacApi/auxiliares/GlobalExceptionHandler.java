@@ -1,6 +1,8 @@
 package br.edu.infnet.isaacApi.auxiliares;
 
 import br.edu.infnet.isaacApi.model.exceptions.*;
+import feign.Feign;
+import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,6 +16,19 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+
+    @ExceptionHandler(FeignException.class)
+        public ResponseEntity<Object> handlerFeighException(FeignException e){
+            Map<String , Object> body = new HashMap<String,Object>();
+
+            body.put("dataHora", LocalDateTime.now());
+            body.put("status", HttpStatus.NOT_FOUND.value());
+            body.put("mensagem", e.getMessage());
+
+
+            return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        }
 
     @ExceptionHandler(JogoInexistenteException.class)
     public ResponseEntity<Object> handlerJogoInexistenteException(JogoInexistenteException e){

@@ -1,6 +1,8 @@
 package br.edu.infnet.isaacApi.model.service;
 
+import br.edu.infnet.isaacApi.clients.FeighClientIsaacApiJogos;
 import br.edu.infnet.isaacApi.model.domain.Jogo;
+import br.edu.infnet.isaacApi.model.domain.JogoDescricao;
 import br.edu.infnet.isaacApi.model.exceptions.*;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,12 @@ public class JogoService {
 
     private static final Map<Integer, Jogo> jogos = new HashMap<Integer,Jogo>();
     private static final AtomicInteger id = new AtomicInteger(1);
+
+    private final FeighClientIsaacApiJogos feighClientIsaacApiJogos;
+
+    public JogoService(FeighClientIsaacApiJogos feighClientIsaacApiJogos){
+        this.feighClientIsaacApiJogos = feighClientIsaacApiJogos;
+        }
 
     public Jogo incluir(Jogo jogo) {
 
@@ -80,6 +88,12 @@ public class JogoService {
         if(!jogos.containsKey(id)) throw new JogoInexistenteException("Jogo não encontrado");
 
         return jogos.remove(id);
+    }
+    
+    public JogoDescricao obterDescricao(String jogoNome){
+        JogoDescricao jogoDescricao = feighClientIsaacApiJogos.obterDescricao(jogoNome);
+        
+        return jogoDescricao;
     }
 
 }
