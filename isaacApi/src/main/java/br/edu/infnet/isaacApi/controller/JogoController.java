@@ -22,7 +22,7 @@ public class JogoController {
         jogoService = new JogoService(feighClientIsaacApiJogos);
     }
 
-    @GetMapping("/{jogoNome}")
+    @GetMapping("/descricao/{jogoNome}")
     public ResponseEntity<JogoDescricao> obterDescricao(@PathVariable String jogoNome){
 
         JogoDescricao jogo = jogoService.obterDescricao(jogoNome);
